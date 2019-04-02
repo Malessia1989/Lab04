@@ -29,12 +29,12 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="MenuTendina" onAction="#doMenuTendina" prefWidth="150.0" />
+                  <ComboBox fx:id="MenuTendina" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" onAction="#doCercaIscritti" text="Cerca Iscritti ">
+                  <Button fx:id="btnCercaIscritti" mnemonicParsing="false" onAction="#doCercaIscritti" text="Cerca Iscritti ">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
@@ -53,7 +53,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <ImageView fitHeight="25.0" fitWidth="30.0" onMouseClicked="#doCompleta">
+                  <ImageView fx:id="btnCompleta" fitHeight="25.0" fitWidth="30.0" onMouseClicked="#doCompleta">
                      <image>
                         <Image url="@../../../../../../../../../Desktop/segno-di-spunta-verde-21248347.jpg" />
                      </image>
@@ -78,12 +78,12 @@
             </HBox>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" onAction="#doCercaCorsi" text="Cerca Corsi ">
+                  <Button fx:id="btnCercaCorsi" mnemonicParsing="false" onAction="#doCercaCorsi" text="Cerca Corsi ">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#doIscrivi" text="Iscrivi">
+                  <Button fx:id="btnIscrivi" mnemonicParsing="false" onAction="#doIscrivi" text="Iscrivi">
                      <HBox.margin>
                         <Insets left="400.0" />
                      </HBox.margin>
@@ -110,7 +110,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" onAction="#doReset" text="Reset" BorderPane.alignment="CENTER">
+      <Button fx:id="btnReset" mnemonicParsing="false" onAction="#doReset" text="Reset" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="450.0" top="10.0" />
          </BorderPane.margin>

@@ -1,6 +1,8 @@
 package it.polito.tdp.lab04.model;
 
 public class Studente {
+	
+
 	private int matricola;
 	private String cognome;
 	private String nome;
@@ -14,8 +16,9 @@ public class Studente {
 		this.cds = cds;
 	}
 
-	public Studente() {
-		
+
+	public Studente(int matricola) {
+		this.matricola=matricola;
 	}
 
 	public int getMatricola() {
@@ -78,6 +81,9 @@ public class Studente {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return matricola +" " + nome + " "+ cognome + " "+ cds+ " \n" ;
+	}
 	
 }

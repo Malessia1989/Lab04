@@ -5,9 +5,9 @@ public class Corso {
 		private String codIns;
 		private int crediti;
 		private String nome;
-		private String pd;
+		private int pd;
 		
-		public Corso(String codIns, int crediti, String nome, String pd) {
+		public Corso(String codIns, int crediti, String nome, int pd) {
 			
 			this.codIns = codIns;
 			this.crediti = crediti;
@@ -43,11 +43,11 @@ public class Corso {
 			this.nome = nome;
 		}
 
-		public String getPd() {
+		public int getPd() {
 			return pd;
 		}
 
-		public void setPd(String pd) {
+		public void setPd(int pd) {
 			this.pd = pd;
 		}
 
@@ -78,7 +78,7 @@ public class Corso {
 
 		@Override
 		public String toString() {
-			return "Corso [codIns=" + codIns + ", crediti=" + crediti + ", nome=" + nome + ", pd=" + pd + "]";
+			return nome;
 		}
 		
 		
