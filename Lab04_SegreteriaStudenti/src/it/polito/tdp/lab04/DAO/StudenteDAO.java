@@ -29,7 +29,7 @@ public class StudenteDAO {
 				String nome= rs.getString("nome");
 				String cds= rs.getString("cds");
 				
-				System.out.println(matricola + " " + cognome + " " + nome + " " + cds);
+			//	System.out.println(matricola + " " + cognome + " " + nome + " " + cds);
 
 				
 				Studente s=new Studente(matricola, cognome, nome, cds);

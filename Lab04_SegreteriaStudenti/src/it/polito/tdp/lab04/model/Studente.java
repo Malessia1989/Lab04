@@ -53,14 +53,16 @@ public class Studente {
 		this.cds = cds;
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cds == null) ? 0 : cds.hashCode());
 		result = prime * result + matricola;
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -71,16 +73,12 @@ public class Studente {
 		if (getClass() != obj.getClass())
 			return false;
 		Studente other = (Studente) obj;
-		if (cds == null) {
-			if (other.cds != null)
-				return false;
-		} else if (!cds.equals(other.cds))
-			return false;
 		if (matricola != other.matricola)
 			return false;
 		return true;
 	}
-	
+
+
 	@Override
 	public String toString() {
 		return matricola +" " + nome + " "+ cognome + " "+ cds+ " \n" ;

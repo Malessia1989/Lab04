@@ -1,6 +1,7 @@
 package it.polito.tdp.lab04.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.ResourceBundle;
 
@@ -61,6 +62,25 @@ public class SegreteriaStudentiController {
     @FXML
     void doCercaCorsi(ActionEvent event) {
 
+		int matricola;
+		String risultato="";
+		List<Studente> ris =new LinkedList<Studente>(model.getTuttiStudenti());
+    	try {
+    		matricola =Integer.parseInt(txtMatricola.getText());
+    	}catch (NumberFormatException e) {
+			txtResult.appendText("Inserire matricola valida");
+			return;
+		}
+    	Studente s= new Studente(matricola);
+    	
+    	if(!ris.contains(s)) {
+    		txtResult.appendText("Matricola non trovata");
+    		return;
+    	}    	
+    	
+    		
+		risultato+=model.getCorsiDegliStudenti(s);
+		txtResult.setText(risultato);
     }
 
     @FXML
@@ -95,9 +115,29 @@ public class SegreteriaStudentiController {
 		//if (model.isDigit(matricola)) {
 	//	} else
 		//	showAlert("la matricola deve essere un numero ");
+    	List<Studente> ris =new LinkedList<Studente>(model.getTuttiStudenti());
+    	int matricola;
+    	try {
+    		matricola =Integer.parseInt(txtMatricola.getText());
+    	}catch (NumberFormatException e) {
+			txtResult.appendText("Inserire matricola valida");
+			return;
+		}
+    	Studente s= new Studente(matricola);
+    	
+    	if(!ris.contains(s)) {
+    		txtResult.appendText("Matricola non trovata");
+    		return;
+    	}    	
 		
-		txtNome.setText(model.getNome(Integer.parseInt(txtMatricola.getText())));
-		txtCognome.setText(model.getCognome(Integer.parseInt(txtMatricola.getText())));
+		//txtNome.setText(model.getNome(Integer.parseInt(txtMatricola.getText())));
+		//txtCognome.setText(model.getCognome(Integer.parseInt(txtMatricola.getText())));
+    	for(Studente st: ris) {
+    		if(st.getMatricola()== matricola) {
+    			txtNome.setText(st.getNome());
+    			txtCognome.setText(st.getCognome());
+    		}
+    	}
 	}
     	
 

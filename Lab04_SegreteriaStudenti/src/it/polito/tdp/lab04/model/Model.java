@@ -11,7 +11,6 @@ public class Model {
 	private List<Studente> studenti;
 	
 	
-	
 	public Model() {
 	
 		this.corsoDAO =new CorsoDAO();
@@ -25,33 +24,34 @@ public class Model {
 		return  ris;
 	}
 
-	public boolean isDigit(String matricola) {
-
-		return matricola.matches("\\+d");
-	}
+//	public boolean isDigit(String matricola) {
+//
+//		return matricola.matches("\\+d");
+//	}
 	
 	public List<Studente> getTuttiStudenti() {
 		List<Studente> st=studenteDAO.getTuttiStudenti(); 
 		return  st;
 	}
 
-	public String getNome(int matricola) {
-		for(Studente s : studenteDAO.getTuttiStudenti()) {
-			if(s.getMatricola()==matricola) {
-		}
-		return s.getNome();
-	}
-		return null;
-	}
-
-	public String getCognome(int matricola) {
-		studenti=studenteDAO.getTuttiStudenti();
-			for(Studente s: studenti) {
-				if(s.getMatricola()== matricola)
-					return s.getCognome();
-			}
-			return null;
-	}
+//	public String getNome(int matricola) {
+//		for(Studente s : studenteDAO.getTuttiStudenti()) {
+//			if(s.getMatricola()==matricola) {
+//				return s.getNome();
+//		}
+//		
+//	}
+//		return null;
+//	}
+//
+//	public String getCognome(int matricola) {
+//		studenti=studenteDAO.getTuttiStudenti();
+//			for(Studente s: studenti) {
+//				if(s.getMatricola()== matricola)
+//					return s.getCognome();
+//			}
+//			return null;
+//	}
 
 	public List<Studente> getStudentiIscrittiAlCorso(Corso c) {
 		List<Studente> iscritti=corsoDAO.getStudentiIscrittiAlCorso(c);
@@ -68,6 +68,19 @@ public class Model {
 		return risultato;
 	}
 
+	public List<Corso> getCorsiDegliStudenti(Studente s) {
+		List<Corso> iscritti =corsoDAO.getCorsiAcuiIScrittiStudenti(s);
+		List<Corso> tuttiCorsi=corsoDAO.getTuttiICorsi();
+		List<Corso> ris= new LinkedList<Corso>();
+		
+		for(Corso c: tuttiCorsi) {
+				for(Corso cs:iscritti) {
+					if(c.getCodIns().compareTo(cs.getCodIns())==0) {
+						ris.add(c);
+					}
+				}
+		}
+		return ris;
+			}
 
-
-}
+	}

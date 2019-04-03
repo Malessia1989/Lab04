@@ -15,9 +15,11 @@ public class Corso {
 			this.pd = pd;
 		}
 
-		public Corso() {
-			
+		public Corso(String codIns) {
+			this.codIns = codIns;
 		}
+
+
 
 		public String getCodIns() {
 			return codIns;
@@ -78,9 +80,8 @@ public class Corso {
 
 		@Override
 		public String toString() {
-			return nome;
+			return codIns +" " + crediti+ " "+ nome+ " "+ pd +" \n";
 		}
-		
-		
+
 		
 }

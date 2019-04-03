@@ -80,12 +80,8 @@ public class CorsoDAO {
 			
 			}catch (SQLException e) {
 				throw new RuntimeException("Errore DB");
-			}
-	
-		
+			}	
 	}
-
-
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
@@ -93,5 +89,29 @@ public class CorsoDAO {
 		// TODO
 		// ritorna true se l'iscrizione e' avvenuta con successo
 		return false;
+	}
+	
+	public List<Corso> getCorsiAcuiIScrittiStudenti(Studente s) {
+		final String sql="SELECT codins FROM iscrizione WHERE matricola=?";
+		List<Corso > corsi= new LinkedList<Corso>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, s.getMatricola());
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				String codins= rs.getString("codins");
+				Corso c= new Corso(codins);
+				corsi.add(c);
+			}
+			return corsi;
+			
+			}catch (SQLException e) {
+				throw new RuntimeException("Errore DB");
+			}
+
 	}
 }
