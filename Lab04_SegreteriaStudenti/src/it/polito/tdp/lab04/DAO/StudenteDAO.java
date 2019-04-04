@@ -42,6 +42,13 @@ public class StudenteDAO {
 		throw new RuntimeException("Errore DB");
 	}
 		}
+
+	public Studente getStudenteByID(int matricola) {
+		
+		
+		
+		return null;
+	}
 	
 	//verifico che lo studente sia iscritto al corso
 

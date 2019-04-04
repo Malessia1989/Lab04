@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,7 +63,9 @@ public class CorsoDAO {
 	 */
 	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
 		
-		final String sql="SELECT * FROM iscrizione WHERE codins= ? ";
+		final String sql ="select s.matricola, s.cognome,s.nome,s.CDS\n" + 
+				"from iscrizione as i, studente as s\n" + 
+				"where i.matricola= s.matricola  and codIns =? ";
 		List<Studente > studenti= new LinkedList<Studente>();
 
 		try {
@@ -73,7 +76,7 @@ public class CorsoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				Studente s=new Studente(rs.getInt("matricola"));
+				Studente s=new Studente(rs.getInt("matricola"), rs.getString("cognome"), rs.getString("nome"),rs.getString("cds"));
 				studenti.add(s);
 			}
 			return studenti;
@@ -82,6 +85,7 @@ public class CorsoDAO {
 				throw new RuntimeException("Errore DB");
 			}	
 	}
+
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
@@ -92,7 +96,9 @@ public class CorsoDAO {
 	}
 	
 	public List<Corso> getCorsiAcuiIScrittiStudenti(Studente s) {
-		final String sql="SELECT codins FROM iscrizione WHERE matricola=?";
+		final String sql="select c.codins,c.crediti,c.nome,c.pd\n" + 
+				"from iscrizione as i, corso as c\n" + 
+				"where c.codins=i.codins AND matricola=? ";
 		List<Corso > corsi= new LinkedList<Corso>();
 
 		try {
@@ -113,5 +119,34 @@ public class CorsoDAO {
 				throw new RuntimeException("Errore DB");
 			}
 
+	}
+
+	public List < Corso> getCorsiAcuiIScrittiStudenti(int matricola) {
+		final String sql="select c.codins,c.crediti,c.nome,c.pd\n" + 
+				"from iscrizione as i, corso as c\n" + 
+				"where c.codins=i.codins AND matricola=? ";
+		List<Corso > corsi= new LinkedList<Corso>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1,matricola);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				String codins= rs.getString("codins");
+				Corso c= new Corso(codins);
+				corsi.add(c);
+			}
+			return corsi;
+			
+			}catch (SQLException e) {
+				throw new RuntimeException("Errore DB");
+			}
+
+		
+		
+		
 	}
 }

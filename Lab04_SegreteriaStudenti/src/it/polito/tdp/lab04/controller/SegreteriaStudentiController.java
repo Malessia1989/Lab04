@@ -61,92 +61,69 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaCorsi(ActionEvent event) {
-
-		int matricola;
-		String risultato="";
-		List<Studente> ris =new LinkedList<Studente>(model.getTuttiStudenti());
-    	try {
-    		matricola =Integer.parseInt(txtMatricola.getText());
-    	}catch (NumberFormatException e) {
-			txtResult.appendText("Inserire matricola valida");
-			return;
-		}
-    	Studente s= new Studente(matricola);
     	
-    	if(!ris.contains(s)) {
-    		txtResult.appendText("Matricola non trovata");
-    		return;
-    	}    	
-    	
+    	String matricola= txtMatricola.getText();
+    	if(matricola != null && !matricola.isEmpty()) {
+    		if(model.isDigit(matricola)) {
+    			Studente s= model.getStudenteByID(matricola);
+    			if(s != null) {
+    				String elencoCorsi= model.getElencoCorsi(matricola);
+    				txtResult.setText(elencoCorsi);
+    			}else
+    				showAlert("lo studente non esiste");
+    		}else
+    			showAlert("inserire un numero di 6 cifre");
     		
-		risultato+=model.getCorsiDegliStudenti(s);
-		txtResult.setText(risultato);
+    	}else
+    		showAlert("inserire un numero!");
+    
     }
 
     @FXML
     void doCercaIscritti(ActionEvent event) {
-    	txtCognome.clear();
-		txtMatricola.clear();
-		txtNome.clear();
-		txtResult.clear();
-		
-		//controllo se il corso è selezionato
-		if(MenuTendina.getValue() ==null) {
-			txtResult.appendText("Seleziona un corso");
-			return;
-		}
-		
-		String risultato=" ";
-		Corso c=MenuTendina.getValue();		
-		List<Studente> st= model.getStudentiIscrittiAlCorso(c);
-			for(Studente s: st) {
-				risultato+=s.toString();
-				
-			}
-			txtResult.setText(risultato);
-    
+    	
+    	Corso corsoSelezionato = MenuTendina.getValue();	//input
+    	
+    	if(corsoSelezionato != null) {
+    		String elencoStudenti= model.getElencoStudenti(corsoSelezionato);
+    		txtResult.setText(elencoStudenti);    		
+    		
+    	}else showAlert("selezionare un corso");
+    	
+    	
     }
 
     @FXML
     void doCompleta(MouseEvent event) {
+    	
+    	String matricola= txtMatricola.getText();
+    	if(matricola != null && !matricola.isEmpty()) {
+    		if(model.isDigit(matricola)) {
+    			Studente s= model.getStudenteByID(matricola);
+    			if(s != null) {
+    				String nome= s.getNome();
+    				String cognome=s.getCognome();
+    				txtNome.setText(nome);
+    				txtCognome.setText(cognome);
+    				
+    			}else
+    				showAlert("lo studente non esiste");
+    		}else
+    			showAlert("inserire un numero di 6 cifre");
+    		
+    	}else
+    		showAlert("inserire un numero!");
+    	
+    	
     
-    //	String matricola = txtMatricola.getText();
+    }
 
-		//if (model.isDigit(matricola)) {
-	//	} else
-		//	showAlert("la matricola deve essere un numero ");
-    	List<Studente> ris =new LinkedList<Studente>(model.getTuttiStudenti());
-    	int matricola;
-    	try {
-    		matricola =Integer.parseInt(txtMatricola.getText());
-    	}catch (NumberFormatException e) {
-			txtResult.appendText("Inserire matricola valida");
-			return;
-		}
-    	Studente s= new Studente(matricola);
-    	
-    	if(!ris.contains(s)) {
-    		txtResult.appendText("Matricola non trovata");
-    		return;
-    	}    	
-		
-		//txtNome.setText(model.getNome(Integer.parseInt(txtMatricola.getText())));
-		//txtCognome.setText(model.getCognome(Integer.parseInt(txtMatricola.getText())));
-    	for(Studente st: ris) {
-    		if(st.getMatricola()== matricola) {
-    			txtNome.setText(st.getNome());
-    			txtCognome.setText(st.getCognome());
-    		}
-    	}
-	}
-    	
+    private void showAlert(String message) {
+    	Alert alert = new Alert(AlertType.ERROR);
+		alert.setContentText(message);
+		alert.show();
 
-//	private void showAlert(String message) {
-//		Alert alert = new Alert(AlertType.ERROR);
-//		alert.setContentText(message);
-//		alert.show();
-
-//    }
+    }
 
     @FXML
     void doIscrivi(ActionEvent event) {
@@ -173,12 +150,14 @@ public class SegreteriaStudentiController {
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
+        
+        MenuTendina.getItems().addAll(Model.getAllCorsi());
 
     }
 
 	public void setModel(Model model) {
 		this.model=model;
-		MenuTendina.getItems().addAll(model.getTuttiCorsi());
+	
 		
 	}
 }
