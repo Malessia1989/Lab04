@@ -113,16 +113,12 @@ public class SegreteriaStudentiController {
     		
     	}else
     		showAlert("inserire un numero!");
-    	
-    	
-    
-    }
+       }
 
     private void showAlert(String message) {
     	Alert alert = new Alert(AlertType.ERROR);
 		alert.setContentText(message);
 		alert.show();
-
     }
 
     @FXML
@@ -136,6 +132,7 @@ public class SegreteriaStudentiController {
     	txtNome.clear();
     	txtCognome.clear();
     	txtResult.clear();
+    	
     }
 
     @FXML

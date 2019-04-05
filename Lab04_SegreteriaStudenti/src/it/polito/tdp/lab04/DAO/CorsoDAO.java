@@ -95,36 +95,13 @@ public class CorsoDAO {
 		return false;
 	}
 	
-	public List<Corso> getCorsiAcuiIScrittiStudenti(Studente s) {
-		final String sql="select c.codins,c.crediti,c.nome,c.pd\n" + 
-				"from iscrizione as i, corso as c\n" + 
-				"where c.codins=i.codins AND matricola=? ";
-		List<Corso > corsi= new LinkedList<Corso>();
 
-		try {
-			Connection conn = ConnectDB.getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setInt(1, s.getMatricola());
-
-			ResultSet rs = st.executeQuery();
-
-			while (rs.next()) {
-				String codins= rs.getString("codins");
-				Corso c= new Corso(codins);
-				corsi.add(c);
-			}
-			return corsi;
-			
-			}catch (SQLException e) {
-				throw new RuntimeException("Errore DB");
-			}
-
-	}
 
 	public List < Corso> getCorsiAcuiIScrittiStudenti(int matricola) {
-		final String sql="select c.codins,c.crediti,c.nome,c.pd\n" + 
-				"from iscrizione as i, corso as c\n" + 
+		final String sql="select c.codins,c.crediti,c.nome,c.pd " + 
+				"from iscrizione as i, corso as c " + 
 				"where c.codins=i.codins AND matricola=? ";
+		
 		List<Corso > corsi= new LinkedList<Corso>();
 
 		try {
@@ -135,8 +112,8 @@ public class CorsoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				String codins= rs.getString("codins");
-				Corso c= new Corso(codins);
+
+				Corso c= new Corso(rs.getString("codins"),rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd"));
 				corsi.add(c);
 			}
 			return corsi;
@@ -145,7 +122,6 @@ public class CorsoDAO {
 				throw new RuntimeException("Errore DB");
 			}
 
-		
 		
 		
 	}

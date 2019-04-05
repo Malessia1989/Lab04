@@ -17,26 +17,20 @@ public class Model {
 		return matricola.matches( "\\d{6}");
 	}
 
-
-
 	public Studente getStudenteByID(String matricola) {
 		StudenteDAO dao= new StudenteDAO();
 		return dao.getStudenteByID(Integer.parseInt(matricola));
 	}
-
-
 
 	public String getElencoCorsi(String matricola) {
 		CorsoDAO dao= new CorsoDAO();
 		List<Corso> corsiSeguiti= new LinkedList<Corso>(dao.getCorsiAcuiIScrittiStudenti(Integer.parseInt(matricola)));
 		String elencoCorsi="";
 		for(Corso c:corsiSeguiti) {
-			elencoCorsi+=corsiSeguiti.toString() + "\n";
+			elencoCorsi+=corsiSeguiti.toString() + " \n";
 		}
 		return elencoCorsi;
 	}
-
-
 
 	public String getElencoStudenti(Corso corsoSelezionato) {
 		CorsoDAO dao= new CorsoDAO();
@@ -47,8 +41,6 @@ public class Model {
 		}
 		return elencoStudenti;
 	}
-
-
 
 	public static List<Corso> getAllCorsi() {
 		CorsoDAO dao= new CorsoDAO();

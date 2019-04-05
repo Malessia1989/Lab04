@@ -38,18 +38,42 @@ public class StudenteDAO {
 			}
 		
 		return studenti;
-	}catch (SQLException e) {
-		throw new RuntimeException("Errore DB");
-	}
+	
+		}catch (SQLException e) {
+			throw new RuntimeException("Errore DB");
 		}
+	}
 
 	public Studente getStudenteByID(int matricola) {
 		
+		final String sql=" select nome, cognome " + 
+				"from studente " + 
+				"where matricola= ? ";
 		
+		Studente s=null;
 		
-		return null;
-	}
-	
-	//verifico che lo studente sia iscritto al corso
+		try {
+			Connection conn =ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, matricola);
+			
+			ResultSet rs = st.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				
+				String nome= rs.getString("nome");
+				String cognome= rs.getString("cognome");
+				s= new Studente (nome,cognome);
+				
+			}
+						return  s;
 
+		}catch (Exception e) {
+			throw new RuntimeException("Errore DB");
+		}
+	
 }
+}
+

@@ -21,6 +21,12 @@ public class Studente {
 		this.matricola=matricola;
 	}
 
+	public Studente(String nome, String cognome) {
+		this.cognome=cognome;
+		this.nome=nome;
+	}
+
+
 	public int getMatricola() {
 		return matricola;
 	}
